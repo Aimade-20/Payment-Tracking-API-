@@ -1,5 +1,5 @@
 const { register, login } = require("../services/userServices");
-
+const User=require("../models/user")
 const registerController = async (req, res, next) => {
   try {
     const user = await register(req.body);
@@ -38,4 +38,19 @@ const loginController = async (req, res, next) => {
   }
 };
 
-module.exports = { registerController, loginController };
+const geMe = async(req, res , next) =>{
+  try {
+    const user = await User.findById(req.user.id).select("-password")
+    if(!user){
+      return res.status(404).json({message : "User not found"})
+    }
+    res.status(200).json({
+      status : "success",
+      data : {user}
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { registerController, loginController ,geMe};

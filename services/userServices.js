@@ -40,8 +40,4 @@ async function getUserById(id) {
     return await User.findById(id).select("-password")
 }
 
-async function me(){
-    
-}
-
 module.exports ={register , login,getUserById}

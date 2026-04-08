@@ -2,7 +2,7 @@ function sendErrorDev(err, req, res) {
   return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
-    stack: err.stack,
+    stack: err,
   });
 }
 function sendErrorProd(err, req, res) {

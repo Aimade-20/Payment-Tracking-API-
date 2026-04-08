@@ -1,29 +1,23 @@
 const dotenv = require("dotenv");
-const ErrorMiddleware=require("./middlewares/errorHandler")
-dotenv.config({path:".env"});
-const connectDB = require("./config/db");
+dotenv.config({ path: ".env" });
 
 const express = require("express");
+const connectDB = require("./config/db");
 const authRoutes = require("./routes/userRoute");
+const fournisseursRoute =require("./routes/fournisseursRoute")
+const ErrorMiddleware = require("./middlewares/errorHandler");
 
 const app = express();
 connectDB();
-console.log("authRoutes:", typeof authRoutes);
-console.log("ErrorMiddleware:", typeof ErrorMiddleware);
+
 app.use(express.json());
-
-app.use("/auth", authRoutes);
-
-
-app.use((err, req, res,next) => {
-  const status = err.statusCode || 500;
-  res.status(status).json({ error: err.message || "Server Error" ,message :err});
-});
+app.use("/api/auth", authRoutes);
+app.use("/api",fournisseursRoute)
+app.use(ErrorMiddleware);
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
-app.use(ErrorMiddleware)
+
 module.exports = app;
