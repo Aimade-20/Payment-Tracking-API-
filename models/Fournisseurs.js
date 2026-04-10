@@ -11,3 +11,4 @@ const Fournisseur = mongoose.model("Fournisseur", fournisseursSchema);
 console.log(Fournisseur);
 
 module.exports = Fournisseur; 
+// supplierId, amount, dueDate
