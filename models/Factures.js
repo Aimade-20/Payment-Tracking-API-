@@ -1,22 +1,37 @@
 const mongoose = require("mongoose");
-const Fournisseur = require("./Fournisseurs");
 
-const FacturSchema = new mongoose.Schema({
-  FournisseurId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Fournisseurs",
+const invoiceSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    supplierId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Fournisseur",
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+      min: [0.01, "Le montant doit être supérieur à 0"],
+    },
+    dueDate: {
+      type: Date,
+      required: true,
+    },
+    description: {
+      type: String,
+      default: null,
+    },
+    status: {
+      type: String,
+      enum: ["unpaid", "paid", "overdue"],
+      default: "unpaid",
+    },
   },
-  amount: {
-    type: Number,
-    required: [true, "le montant est onligatoire"],
-    min: [1, "Le montant doit être supérieur à 0"],
-  },
-  dueDate: {
-    type: Date,
-    default: Date.now,
-  },
-  description :{
-    type : String
-  }
-  
-});
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("Invoice", invoiceSchema);

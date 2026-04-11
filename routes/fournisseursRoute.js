@@ -2,15 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const { create } = require("../controllers/fournisseursControllers");
-const {
-  getAllFournisseurs,
-} = require("../controllers/fournisseursControllers");
-const {
-  getFournisseursById,
-} = require("../controllers/fournisseursControllers");
-const {
-  fournisseursValidator,
-} = require("../middlewares/validationMiddleware");
+const { getAllFournisseurs,} = require("../controllers/fournisseursControllers");
+const {getFournisseursById,} = require("../controllers/fournisseursControllers");
+const {fournisseursValidator,} = require("../middlewares/validationMiddleware");
 const fournisseursMiddleware = require("../middlewares/userMiddleware");
 const { deleteFournisseur } = require("../controllers/fournisseursControllers");
 const { updateFournisseur } = require("../controllers/fournisseursControllers");

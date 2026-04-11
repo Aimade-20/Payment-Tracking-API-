@@ -1,5 +1,6 @@
 const { registerSchema, loginSchema } = require("../validators/userValidators");
 const {fournisseursSchema } = require("../validators/fournisseursValidator")
+const {createInvoice ,updateFactur} = require("../validators/FactureValidators")
 const validateSchema = (schema) => {
   return (req, res, next) => {
     const { error } = schema.validate(req.body, { abortEarly: false });
@@ -24,10 +25,13 @@ const validateSchema = (schema) => {
 const validateRegister = validateSchema(registerSchema);
 const validateLogin = validateSchema(loginSchema);
 const fournisseursValidator = validateSchema(fournisseursSchema)
-
+const factureValidator = validateSchema(createInvoice)
+const UpfactureValidator = validateSchema(updateFactur)
 module.exports = {
   validateSchema,
   validateRegister,
   validateLogin,
-  fournisseursValidator
+  fournisseursValidator,
+  factureValidator,
+  UpfactureValidator
 };
