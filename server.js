@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/userRoute");
 const fournisseursRoute =require("./routes/fournisseursRoute")
 const factureRoute = require("./routes/FactureRoute");
+const paymentRoutes = require("./routes/payementRoute");
 const ErrorMiddleware = require("./middlewares/errorHandler");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api",fournisseursRoute)
 app.use("/api",factureRoute)
+app.use("/api", paymentRoutes);
 app.use(ErrorMiddleware);
 
 const PORT = process.env.PORT || 3000;

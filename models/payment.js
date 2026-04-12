@@ -21,6 +21,15 @@ const paymentSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    mode_paiement: {
+      type: String,
+      enum: ["espèces", "chèque", "virement"],
+      required: true,
+    },
+    note: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );
