@@ -26,7 +26,7 @@ async function getAll(req, res) {
 
     res.status(200).json(factures);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     
     res.status(400).json({ message: error.message });
   }

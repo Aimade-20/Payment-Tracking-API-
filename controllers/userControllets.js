@@ -8,7 +8,7 @@ const registerController = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     if (error.message === "User already exists") {
       return res.status(422).json({
         success: false,

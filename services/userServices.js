@@ -6,6 +6,8 @@ async function register(data){
     const {name , email ,password ,role} = data
 
     const existingUser = await User.findOne({email})
+    // console.log(existingUser);
+    
     if(existingUser){
         throw new Error("user already exists")
     }
@@ -22,6 +24,8 @@ async function register(data){
 }
 async function login (email , password){
     const fondUser = await User.findOne({email}).select("+password")
+    // console.log(fondUser);
+    
     if(!fondUser){
         throw new Error("invalid creadentials")
     }
