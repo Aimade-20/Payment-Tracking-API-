@@ -19,7 +19,6 @@ async function getFactures(userId, filters = {}, page = 1, limit = 15) {
   const query = { userId };
   if (filters.status) query.status = filters.status;
   if (filters.supplierId) query.supplierId = filters.supplierId;
-
   const factures = await Factures.find(query)
     .populate("supplierId", "name")
     .sort({ createdAt: -1 })
@@ -31,7 +30,7 @@ async function getFactures(userId, filters = {}, page = 1, limit = 15) {
     factures.map(async (facture) => {
       const payments = await Payment.find({ invoiceId: facture._id });
       const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
-      const remainingAmount = facture.amount - totalPaid;
+      const remainingAmount = facture.amount - totalPaid; 
 
       return {
         id: facture._id,
@@ -96,6 +95,16 @@ async function deleteFacture(factureId, userId) {
 
   await Factures.findByIdAndDelete(factureId);
   return { message: "Facture supprimée" };
+}
+
+
+async function getFcturFilter(invoiceId ,data){
+  const quiry = {status}
+  if(!quiry){
+    throw new Error("status not find")
+  }
+  if(!quiry === "inpaid")
+  const getFactur = await  module.Factures.find(Factures.invstatus === "unpaid")
 }
 
 

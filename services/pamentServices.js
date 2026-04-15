@@ -8,7 +8,7 @@ async function createPayment(factureId, userId, data) {
   if (facture.userId.toString() !== userId.toString()) {
     throw new Error("Forbidden");
   }
-
+ 
   if (facture.status === "paid") {
     throw new Error("Facture déjà payée");
   }
@@ -58,19 +58,19 @@ async function createPayment(factureId, userId, data) {
 }
 
 async function getPayments(factureId, userId) {
-  // كنجيبو facture
+
   const facture = await Factures.findById(factureId);
   if (!facture) throw new Error("Facture not found");
 
-  // كنتحققو من ownership - 403
+
   if (facture.userId.toString() !== userId.toString()) {
     throw new Error("Forbidden");
   }
 
-  // كنجيبو جميع payments ديال هاد facture
+
   const payments = await Payment.find({ invoiceId: factureId });
 
-  // كنحسبو totalPaid
+
   const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
   const remainingAmount = facture.amount - totalPaid;
 
@@ -89,7 +89,7 @@ async function getPayments(factureId, userId) {
       remainingAmount,
       status: facture.status,
     },
-  };
+  }; 
 }
 
 async function getSupplierStats(supplierId, userId) {
@@ -124,13 +124,11 @@ async function getSupplierStats(supplierId, userId) {
 
   const allFactures = await Factures.find({ userId });
   const globalTotal = allFactures.reduce((sum, f) => sum + f.amount, 0);
-  const percentage = globalTotal > 0
-    ? parseFloat(((totalAmount / globalTotal) * 100).toFixed(2))
-    : 0;
+  const percentage = globalTotal > 0 ? parseFloat(((totalAmount / globalTotal) * 100).toFixed(2)) : 0;
 
   return {
     supplierId: supplier._id,
-    supplierName: supplier.name,
+    supplierName: supplier.name, 
     totalInvoices,
     totalAmount,
     totalPaid,
@@ -140,5 +138,7 @@ async function getSupplierStats(supplierId, userId) {
     invoicesByStatus,
   };
 }
+
+
 
 module.exports = { createPayment, getPayments,getSupplierStats };

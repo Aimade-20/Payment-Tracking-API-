@@ -12,7 +12,7 @@ async function addPayment(req, res) {
     );
     res.status(201).json(payment);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     
     if (error.message === "Facture not found") {
       return res.status(404).json({ message: error.message });
@@ -35,7 +35,7 @@ async function getPayments(req, res) {
     );
     res.status(200).json(result);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     if (error.message === "Facture not found") {
       return res.status(404).json({ message: error.message });
     }
@@ -54,7 +54,7 @@ async function getSupplierStats(req, res) {
     );
     res.status(200).json(stats);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     if (error.message === "Supplier not found") {
       return res.status(404).json({ message: error.message });
     }
